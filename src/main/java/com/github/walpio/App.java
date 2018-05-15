@@ -1,8 +1,11 @@
 package com.github.walpio;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.walpio.JsonParser.Currency;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -15,7 +18,7 @@ public class App {
     private static final Logger logger = LogManager.getLogger(App.class.getName());
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         InputData inputData = new InputData();
 
@@ -91,6 +94,9 @@ public class App {
 
         RequestHandler requestHandler = new RequestHandler();
         String json = requestHandler.getJsonFile(uri);
+
+        ObjectMapper mapper = new ObjectMapper();
+        Currency currency = mapper.readValue(json, Currency.class);
     }
 
     private static String getUserInput() {
