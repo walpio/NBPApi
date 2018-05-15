@@ -86,6 +86,9 @@ public class App {
                 }
             }
         } while (inputData.getEndDate() == null);
+
+        UriGenerator uriGenerator = new UriGenerator();
+        String uri = uriGenerator.generateRequestUri(inputData.getCurrency(), inputData.getStartDate(), inputData.getEndDate());
     }
 
     private static String getUserInput() {
