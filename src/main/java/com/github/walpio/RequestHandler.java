@@ -23,16 +23,19 @@ public class RequestHandler {
 
             if (response.getStatus() != 200) {
                 logger.warn(String.format("%s %s.","Błąd połączenia. Kod błędu:", response.getStatus()));
-                return String.format("%s %s. %s","Błąd połączenia. Kod błędu:", response.getStatus(), "Upewnij się, że wprowadziłeś poprawne dane i posiadasz połączenie z siecią!");
             }
 
             json = response.getEntity(String.class);
 
         } catch (Exception e) {
-            logger.info(e.getStackTrace());
+            logger.warn("Błąd połączenia. " + e.getMessage());
         }
-        logger.info("Pobrano plik JSON.");
-        logger.debug(String.format("Pobrany plik: %s", json));
+        if (!json.equals("")) {
+            logger.info("Pobrano plik JSON.");
+            logger.debug(String.format("Pobrany plik: %s", json));
+        } else {
+            logger.info("Nie udało się pobrać pliku JSON.");
+        }
         return json;
     }
 }
