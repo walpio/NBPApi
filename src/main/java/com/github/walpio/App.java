@@ -12,7 +12,6 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class App {
-
     private static final Logger logger = LogManager.getLogger(App.class.getName());
     private static Scanner scanner = new Scanner(System.in);
 
