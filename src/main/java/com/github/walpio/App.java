@@ -18,7 +18,7 @@ public class App {
     private static final Logger logger = LogManager.getLogger(App.class.getName());
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         InputData inputData = new InputData();
 
@@ -99,15 +99,26 @@ public class App {
         String json = requestHandler.getJsonFile(uri);
 
         ObjectMapper mapper = new ObjectMapper();
-        Currency currency = mapper.readValue(json, Currency.class);
-        Calculator calculator = new Calculator();
+        Currency currency;
+        try {
+            currency = mapper.readValue(json, Currency.class);
+            Calculator calculator = new Calculator();
 
-        System.out.println();
-        System.out.println("============================= WYNIK =============================");
-        System.out.printf("%s %.4f", "Średni kurs kupna wynosi:", calculator.getAverageBid(currency.getRates()));
-        System.out.println();
-        System.out.printf("%s %.4f", "Odchylenie standardowe kursów sprzedaży wynosi:", calculator.getStandardDeviationOfAsk(currency.getRates()));
-        System.out.println("=================================================================");
+            System.out.println();
+            System.out.println("============================= WYNIK =============================");
+            System.out.printf("%s %.4f", "Średni kurs kupna wynosi:", calculator.getAverageBid(currency.getRates()));
+            System.out.println();
+            System.out.printf("%s %.4f", "Odchylenie standardowe kursów sprzedaży wynosi:", calculator.getStandardDeviationOfAsk(currency.getRates()));
+            System.out.println();
+            System.out.println("=================================================================");
+        } catch (IOException e) {
+            logger.info(e.getMessage());
+            System.out.println("=================================================================");
+            System.out.println("Wystąpił problem z pobraniem danych z Narodowego Banku Polskiego.");
+            System.out.println("Sprawdź połączenie z siecią i spróbuj ponowanie za kilka minut.");
+            System.out.println("=================================================================");
+//            e.printStackTrace();
+        }
     }
 
     private static String getUserInput() {
