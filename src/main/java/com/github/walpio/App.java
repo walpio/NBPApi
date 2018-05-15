@@ -97,6 +97,14 @@ public class App {
 
         ObjectMapper mapper = new ObjectMapper();
         Currency currency = mapper.readValue(json, Currency.class);
+        Calculator calculator = new Calculator();
+
+        System.out.println();
+        System.out.println("============================= WYNIK =============================");
+        System.out.printf("%s %.4f", "Średni kurs kupna wynosi:", calculator.getAverageBid(currency.getRates()));
+        System.out.println();
+        System.out.printf("%s %.4f", "Odchylenie standardowe kursów sprzedaży wynosi:", calculator.getStandardDeviationOfAsk(currency.getRates()));
+        System.out.println("=================================================================");
     }
 
     private static String getUserInput() {
