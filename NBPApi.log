@@ -1,3 +1,0 @@
-11:48:55.012 [main] DEBUG com.github.walpio.App - Przypisano walutę: eur
-11:49:08.559 [main] DEBUG com.github.walpio.App - Wprowadzono datę początkową pasującą do schematu oraz co najmniej równą 2002-01-02.
-11:49:08.559 [main] DEBUG com.github.walpio.App - Przypisano datę początkową: 2002-01-02
