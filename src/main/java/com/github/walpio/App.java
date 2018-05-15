@@ -117,7 +117,6 @@ public class App {
             System.out.println("Wystąpił problem z pobraniem danych z Narodowego Banku Polskiego.");
             System.out.println("Sprawdź połączenie z siecią i spróbuj ponowanie za kilka minut.");
             System.out.println("=================================================================");
-//            e.printStackTrace();
         }
     }
 
