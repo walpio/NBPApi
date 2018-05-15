@@ -29,6 +29,7 @@ public class App {
             currencyCode = getUserInput();
             if (currencyPattern.matcher(currencyCode).matches()) {
                 inputData.setCurrency(currencyCode);
+                logger.info("Przypisano walutę.");
                 logger.debug(String.format("Przypisano walutę: %s", currencyCode));
             }
         } while (inputData.getCurrency() == null);
@@ -53,6 +54,7 @@ public class App {
                     System.out.println("Data początkowa powinna być co najmniej dzień przed dzisiejszą datą.");
                 } else {
                     inputData.setStartDate(startDate);
+                    logger.info("Przypisano datę początkową.");
                     logger.debug(String.format("Przypisano datę początkową: %s", startDate));
                 }
             }
@@ -84,6 +86,7 @@ public class App {
                 } else {
                     logger.debug("Wprowadzono datę końcową pasującą do schematu i mieszczącą się w przedziale 367 dni.");
                     inputData.setEndDate(endDate);
+                    logger.info("Przypisano datę końcową.");
                     logger.debug(String.format("Przypisano datę końcową: %s", endDate));
                 }
             }
