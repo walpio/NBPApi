@@ -3,8 +3,11 @@ package com.github.walpio;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -52,6 +55,37 @@ public class App {
                 }
             }
         } while (inputData.getStartDate() == null);
+
+        String endDate;
+        String dateLimit;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        try {
+            calendar.setTime(sdf.parse(inputData.getStartDate()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        calendar.add(Calendar.DATE, 367);
+        dateLimit = sdf.format(calendar.getTime());
+        logger.info("Określono datę ograniczającą okres 367 dni.");
+        logger.debug(String.format("Maksymalna data dla okresu 367 dni: %s", dateLimit));
+        do {
+            System.out.println("Wprowadź datę końcową okresu, który Cię interesuje w formacie RRRR-MM-DD. (Maksymany dopuszczalny przedział wynosi 367 dni!)");
+            endDate = getUserInput();
+            if (datePattern.matcher(endDate).matches()) {
+                if (endDate.compareTo(inputData.getStartDate()) <= 0) {
+                    logger.debug("Wprowadzono błędną datę końcową.");
+                    System.out.println("Data końcowa powinna być co najmniej dzień po dacie początkowej.");
+                } else if (dateLimit.compareTo(endDate) < 0){
+                    logger.debug("Wprowadzono błędną datę końcową.");
+                    System.out.println(String.format("Maksymalna data dla okresu 367 dni: %s. Wprowadź inną datę!", dateLimit));
+                } else {
+                    logger.debug("Wprowadzono datę końcową pasującą do schematu i mieszczącą się w przedziale 367 dni.");
+                    inputData.setEndDate(endDate);
+                    logger.debug(String.format("Przypisano datę końcową: %s", endDate));
+                }
+            }
+        } while (inputData.getEndDate() == null);
     }
 
     private static String getUserInput() {
