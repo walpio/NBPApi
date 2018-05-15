@@ -88,6 +88,9 @@ public class App {
 
         UriGenerator uriGenerator = new UriGenerator();
         String uri = uriGenerator.generateRequestUri(inputData.getCurrency(), inputData.getStartDate(), inputData.getEndDate());
+
+        RequestHandler requestHandler = new RequestHandler();
+        String json = requestHandler.getJsonFile(uri);
     }
 
     private static String getUserInput() {
